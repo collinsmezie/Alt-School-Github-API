@@ -16,10 +16,12 @@ function Home() {
 
     const [totalRepos, setTotalRepos] = useState(repos.length);
     const [currentPage, setCurrentPage] = useState(1); //usually 1
-    const recordsPerPage =5;
+    const recordsPerPage = 8; //number of records per page
 
     const npage = Math.ceil(totalRepos / recordsPerPage);
     const numbers = [...Array(npage +1).keys()].slice(1);
+
+    // console.log("numbers HERE", numbers);
 
     const [msgAlert, setMsgAlert] = useContext(MsgAlertContext);
     const [selectedRow, setSelectedRow] = useState(0); //store id of the selected repo
@@ -33,9 +35,9 @@ function Home() {
             //Get total repos this user have created
             //I shall use it for creating pagination
             let res = await fetch(`${import.meta.env.VITE_FETCH_REPOS}/${user}`);
-            console.log("response here", res);
+            // console.log("response here", res);
             let data = await res.json();
-            console.log("data here", data);
+            // console.log("data here", data);
 
             setTotalRepos(data.public_repos);
 
@@ -68,7 +70,7 @@ function Home() {
 
     //go back one step
     function prePage(e){
-        if (repos.length >0) {
+        if (repos.length > 0) {
             setCurrentPage((p) => p-1);
         }
     }
